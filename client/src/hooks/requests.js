@@ -1,6 +1,11 @@
+// All of our API functions will be made against our single API, so let's set our address of the API into a constant
+const API_URL = 'http:localhost:8000';
+
 async function httpGetPlanets() {
-  // TODO: Once API is ready.
+  // Use the browsers built in function, and specify that we are using different ports for our front and backend
   // Load planets and return as JSON.
+  const response = await fetch(`${API_URL}/planets`);
+  return await response.json();
 }
 
 async function httpGetLaunches() {
