@@ -10,9 +10,11 @@ const PORT = process.env.PORT || 8000;
 
 const server = http.createServer(app);
 
-// Using our kepler stream data we converted to a promise so the data is aways available when our server starts
-await loadPlanetsData;
-
-server.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}...`)
-});
+// Using our kepler stream data we converted to a promise so the data is aways available when our server starts, we have to wrap it in a new function or else using await will cause an error since it is being used in the top level of a module/file
+async function startServer() {
+    await loadPlanetsData;
+    
+    server.listen(PORT, () => {
+        console.log(`Server is listening on ${PORT}...`)
+    });
+}

@@ -14,7 +14,7 @@ function isHabitablePlanet(planet) {
 
 // Using node to read our kepler data csv file, adding handlers to push the resulting habitable planets to an array and log them, as well as catch any errors
 // .pipe will send our kepler data to the parse function, piping similar to terminal commands like in linux, a readable stream (createReadStream()) providing the input for a writable stream (parse())
-async function loadPlanetsData() {
+function loadPlanetsData() {
     // Using our parsing function in a promise so we can wait for it to finish before our server moves on
     return new Promise((resolve, reject) => {
         fs.createReadStream('kepler_data.csv')
