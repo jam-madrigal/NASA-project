@@ -1,6 +1,9 @@
 // Creating an object that defines our launch data
 const launches = new Map();
 
+// Setting state to log our most recent flight number
+let latestFlightNumber = 100;
+
 const launch = {
     flightNumber: 100,
     mission: 'Kepler Exploration X',
@@ -19,6 +22,20 @@ function getAllLaunches() {
     return Array.from(launches.values());
 }
 
+// Launch post requests handler to add a new launch
+function addNewLaunch(launch) {
+    latestFlightNumber++;
+    launches.set(
+        latestFlightNumber, 
+        Object.assign(launch, {
+            flightNumber: latestFlightNumber,
+            customers: ['ZTM', 'NASA'],
+            upcoming: true,
+            success: true,
+        }));
+}
+
 module.exports = {
-    getAllLaunches
+    getAllLaunches,
+    addNewLaunch
 };
