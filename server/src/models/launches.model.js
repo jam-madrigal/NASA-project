@@ -15,6 +15,10 @@ const launch = {
 // Mapping our launches by flight number, the flight number value has a value of the entire corresponding launch object, we could now use something like launch.get(100) to return the launch with that flight number
 launches.set(launch.flightNumber, launch);
 
+function getAllLaunches() {
+    return Array.from(launches.values());
+}
+
 module.exports = {
-    launches
+    getAllLaunches
 };
