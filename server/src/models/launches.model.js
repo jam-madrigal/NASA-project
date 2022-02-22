@@ -18,6 +18,10 @@ const launch = {
 // Mapping our launches by flight number, the flight number value has a value of the entire corresponding launch object, we could now use something like launch.get(100) to return the launch with that flight number
 launches.set(launch.flightNumber, launch);
 
+function existsLaunchWithId(launchId) {
+    return launches.has(launchId);
+}
+
 function getAllLaunches() {
     return Array.from(launches.values());
 }
@@ -35,7 +39,17 @@ function addNewLaunch(launch) {
         }));
 }
 
+// Rather than deleting aborted launches outright, update them to show they are not successful and are no longer upcoming
+function abortLaunchById(launchId) {
+    const aborted = launches.get(launchId);
+    aborted.upcoming = false;
+    aborted.success = false;
+    return aborted;
+}
+
 module.exports = {
     getAllLaunches,
-    addNewLaunch
+    addNewLaunch,
+    existsLaunchWithId,
+    abortLaunchById
 };
