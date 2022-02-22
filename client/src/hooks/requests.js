@@ -26,17 +26,26 @@ async function httpSubmitLaunch(launch) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(launch)
-    })
+    });
   } catch(err) {
     return {
       ok: false
-    }
+    };
   }
 }
 
+// Delete launch with given ID, catching and logging errors if there are any, and if so returning, setting the success variable to false
 async function httpAbortLaunch(id) {
-  // TODO: Once API is ready.
-  // Delete launch with given ID.
+  try {
+    return await fetch(`${API_URL}/launches/${id}`, {
+      method: "delete"
+    });
+  } catch(err) {
+    console.log(err);
+    return {
+      ok: false
+    };
+  }
 }
 
 export {
