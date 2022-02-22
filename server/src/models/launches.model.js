@@ -22,7 +22,7 @@ function getAllLaunches() {
     return Array.from(launches.values());
 }
 
-// Launch post requests handler to add a new launch
+// Launch post requests handler to add a new launch, updating the passed in launch from the request body/payload to have values we still end that aren't changed by the front end, using Object.assign(), this makes our launches be sorted by flight number properties, which then have a value of all the launch data as an object
 function addNewLaunch(launch) {
     latestFlightNumber++;
     launches.set(
