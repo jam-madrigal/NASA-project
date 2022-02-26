@@ -24,13 +24,7 @@ mongoose.connection.on('error', (err) => {
 
 // Using our kepler stream data we converted to a promise so the data is aways available when our server starts, we have to wrap it in a new function or else using await will cause an error since it is being used in the top level of a module/file
 async function startServer() {
-    await mongoose.connect(MONGO_URL, {
-        // These options must be set to ensure we are using the latest technology
-        useNewUrlParser: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-    });
+    await mongoose.connect(MONGO_URL);
     await loadPlanetsData();
     
     server.listen(PORT, () => {
