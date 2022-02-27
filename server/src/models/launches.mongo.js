@@ -32,4 +32,6 @@ const launchesSchema = new mongoose.Schema({
         default: true
     }
 });
+// Connects our launches schema to the launches collection, mongoose will convert our name to lower case and pluralize it
+module.exports = mongoose.model('Launch', launchesSchema);
 
