@@ -4,9 +4,6 @@ const { parse } = require('csv-parse');
 
 const planets = require('./planets.mongo');
 
-// Array to store the results of our kepler data read with node's api
-const habitablePlanets = [];
-
 // Function to filter the data for planets with a confirmed koi disposition property, a habitable stellar flux value, and is within the limit of radial size in relation to Earth's. The key/property can also be selected with dot notation
 function isHabitablePlanet(planet) {
     return planet['koi_disposition'] === 'CONFIRMED' 
@@ -35,28 +32,28 @@ function loadPlanetsData() {
             console.log(err);
             reject(err);
         })
-        .on('end', () => {
-            console.log(`Found ${habitablePlanets.length} habitable planets.`)
-            console.log("Done reading data stream")
+        .on('end', async () => {
+            const countPlanetsFound = (await getAllPlanets()).length;
+            console.log(`Found ${countPlanetsFound} habitable planets.`);
+            console.log("Done reading data stream");
             resolve();
         });
     });
 }
     
 async function getAllPlanets() {
-    return await planets.find({
-
-    });
+    return await planets.find({});
 }
 
 async function savePlanet(planet) {
     try {
         await planets.updateOne({
-        }), {
-            keplerName: data.kepler_name
+            keplerName: planet.kepler_name
+        }, {
+            keplerName: planet.kepler_name
         }, {
             upsert: true
-        };
+        });
     } catch(err) {
         console.error(`Could not save planet ${err}`);
     }
