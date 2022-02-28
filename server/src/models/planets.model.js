@@ -50,12 +50,16 @@ async function getAllPlanets() {
 }
 
 async function savePlanet(planet) {
-    await planets.updateOne({
-    }), {
-        keplerName: data.kepler_name
-    }, {
-        upsert: true
-    };
+    try {
+        await planets.updateOne({
+        }), {
+            keplerName: data.kepler_name
+        }, {
+            upsert: true
+        };
+    } catch(err) {
+        console.error(`Could not save planet ${err}`);
+    }
 };
 
 module.exports = {
