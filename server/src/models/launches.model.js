@@ -1,5 +1,7 @@
 // Creating an object that defines our launch data
 const launches = new Map();
+// Updating to use mongoose/mongo
+// const launches = require('./launches.mongo');
 
 // Setting state to log our most recent flight number
 let latestFlightNumber = 100;
