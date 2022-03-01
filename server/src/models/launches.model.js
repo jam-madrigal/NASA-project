@@ -1,5 +1,6 @@
 // Linking our mongodb launches collection
 const launchesDatabase = require('./launches.mongo');
+const planets = require('./planets.mongo');
 
 const launches = new Map();
 // Setting state to log our most recent flight number
@@ -29,6 +30,15 @@ async function getAllLaunches() {
 
 // Saving launches to mongodb
 async function saveLaunch(launch) {
+    // Validating the planet exists, so we do not add launches to planets that do not exist in our database
+    const planet = await planets.findOne({
+        keplerName: launch.target
+    });
+
+    if (!planet) {
+        throw new Error('No matching planet was found');
+    }
+    
     try {
         await launchesDatabase.updateOne({
             flightNumber: launch.flightNumber,
