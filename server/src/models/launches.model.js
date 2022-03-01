@@ -31,7 +31,7 @@ function getLatestFlightNumber() {
     const latestLaunch = await launchesDatabase
         .findOne()
         .sort('-flightNumber');
-        
+
     if (!latestLaunch) {
         return DEFAULT_FLIGHT_NUMBER;
     }
@@ -67,18 +67,18 @@ async function saveLaunch(launch) {
     }
 }
 
+// Adding a document containing a new launch to mongodb
+async function scheduleNewLaunch(launch) {
+    const newFlightNumber = await getLatestFlightNumber() + 1;
 
-// Launch post requests handler to add a new launch, updating the passed in launch from the request body/payload to have values we still end that aren't changed by the front end, using Object.assign(), this makes our launches be sorted by flight number properties, which then have a value of all the launch data as an object
-function addNewLaunch(launch) {
-    latestFlightNumber++;
-    launches.set(
-        latestFlightNumber, 
-        Object.assign(launch, {
-            flightNumber: latestFlightNumber,
-            customers: ['ZTM', 'NASA'],
-            upcoming: true,
-            success: true,
-        }));
+    const newLaunch = Object.assign(launch, {
+        success: true,
+        upcoming: true,
+        customers: ['ZTM', 'NASA'],
+        flightNumber: newFlightNumber
+    });
+
+    await saveLaunch(newLaunch);
 }
 
 // Rather than deleting aborted launches outright, update them to show they are not successful and are no longer upcoming
@@ -92,6 +92,6 @@ function abortLaunchById(launchId) {
 module.exports = {
     existsLaunchWithId,
     getAllLaunches,
-    addNewLaunch,
+    scheduleNewLaunch,
     abortLaunchById
 };
