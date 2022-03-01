@@ -27,7 +27,7 @@ async function existsLaunchWithId(launchId) {
 }
 
 // Get our latest flight number from the database using a filter that finds the highest flight number value
-function getLatestFlightNumber() {
+async function getLatestFlightNumber() {
     const latestLaunch = await launchesDatabase
         .findOne()
         .sort('-flightNumber');
