@@ -2,9 +2,11 @@
 const launchesDatabase = require('./launches.mongo');
 const planets = require('./planets.mongo');
 
+// Default flight number in case our getLatestLaunch function has no launches to reference
+const DEFAULT_FLIGHT_NUMBER = 100;
+
 const launches = new Map();
 // Setting state to log our most recent flight number
-let latestFlightNumber = 100;
 
 const launch = {
     flightNumber: 100,
@@ -19,10 +21,25 @@ const launch = {
 
 saveLaunch(launch);
 
-function existsLaunchWithId(launchId) {
+// See if a launch exists within our database
+async function existsLaunchWithId(launchId) {
     return launches.has(launchId);
 }
 
+// Get our latest flight number from the database using a filter that finds the highest flight number value
+function getLatestFlightNumber() {
+    const latestLaunch = await launchesDatabase
+        .findOne()
+        .sort('-flightNumber');
+        
+    if (!latestLaunch) {
+        return DEFAULT_FLIGHT_NUMBER;
+    }
+
+    return latestLaunch.flightNumber;
+}
+
+// GET all launches
 async function getAllLaunches() {
     return await launchesDatabase
     .find({}, { '_id': 0, '__v': 0});
@@ -39,6 +56,7 @@ async function saveLaunch(launch) {
         throw new Error('No matching planet was found');
     }
     
+    // Saving a doocument with the newly passed in launch object, or updating it if it already exists by flight number
     try {
         await launchesDatabase.updateOne({
             flightNumber: launch.flightNumber,
