@@ -1,8 +1,7 @@
-// Creating an object that defines our launch data
-const launches = new Map();
-// Updating to use mongoose/mongo
-// const launches = require('./launches.mongo');
+// Linking our mongodb launches collection
+const launchesDatabase = require('./launches.mongo');
 
+const launches = new Map();
 // Setting state to log our most recent flight number
 let latestFlightNumber = 100;
 
@@ -17,16 +16,29 @@ const launch = {
     success: true
 };
 
-// Mapping our launches by flight number, the flight number value has a value of the entire corresponding launch object, we could now use something like launch.get(100) to return the launch with that flight number
-launches.set(launch.flightNumber, launch);
+saveLaunch(launch);
 
 function existsLaunchWithId(launchId) {
     return launches.has(launchId);
 }
 
-function getAllLaunches() {
-    return Array.from(launches.values());
+async function getAllLaunches() {
+    return await launchesDatabase
+    .find({}, { '_id': 0, '__v': 0});
 }
+
+// Saving launches to mongodb
+async function saveLaunch(launch) {
+    try {
+        await launchesDatabase.updateOne({
+            flightNumber: launch.flightNumber,
+        }, launch, {
+            upsert: true
+        })} catch(err) {
+                return console.error(`Could not save launch ${err}`); 
+    }
+}
+
 
 // Launch post requests handler to add a new launch, updating the passed in launch from the request body/payload to have values we still end that aren't changed by the front end, using Object.assign(), this makes our launches be sorted by flight number properties, which then have a value of all the launch data as an object
 function addNewLaunch(launch) {
