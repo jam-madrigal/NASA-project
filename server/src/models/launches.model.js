@@ -84,11 +84,17 @@ async function scheduleNewLaunch(launch) {
 }
 
 // Rather than deleting aborted launches outright, update them to show they are not successful and are no longer upcoming
-function abortLaunchById(launchId) {
-    const aborted = launches.get(launchId);
-    aborted.upcoming = false;
-    aborted.success = false;
-    return aborted;
+async function abortLaunchById(launchId) {
+    const aborted = await launchesDatabase.updateOne({
+        flightNumber: launchId
+    }, {
+        upcoming: false,
+        success: false
+    });
+    /* Returning that a document was modified, and that one document was modified. We can see this object by reading the res.json from our controller function if we simply  used the above await updateOne operation, like below
+    const aborted = await abortLaunchById(launchId);
+    return res.status(200).json(aborted); */
+    return aborted.modifiedCount === 1;
 }
 
 module.exports = {
