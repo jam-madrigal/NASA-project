@@ -58,7 +58,7 @@ async function saveLaunch(launch) {
     
     // Saving a doocument with the newly passed in launch object, or updating it if it already exists by flight number
     try {
-        await launchesDatabase.updateOne({
+        await launchesDatabase.findOneAndUpdate({
             flightNumber: launch.flightNumber,
         }, launch, {
             upsert: true
