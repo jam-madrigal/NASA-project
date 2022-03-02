@@ -23,7 +23,9 @@ saveLaunch(launch);
 
 // See if a launch exists within our database
 async function existsLaunchWithId(launchId) {
-    return launches.has(launchId);
+    return await launchesDatabase.findOne({
+        flightNumber: launchId
+    });
 }
 
 // Get our latest flight number from the database using a filter that finds the highest flight number value
