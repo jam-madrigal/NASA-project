@@ -53,7 +53,7 @@ async function loadLaunchesData() {
     // Looping over the launch data to make a launch object to save in our database
     for (const launchDoc of launchDocs) {
         // Using the built in flatMap() function to make a new array out of each element in the array where customers are stored, it is called on an array and takes a callback which runs on each element and then combines the results of each into a new array
-        const payloads = launchDocs['payloads'];
+        const payloads = launchDoc['payloads'];
         // Iterating over each payload and taking each customers value for each payload and combining them into an array
         const customers = payloads.flatMap((payload) => {
             return payload['customers'];
@@ -68,6 +68,7 @@ async function loadLaunchesData() {
             success: launchDoc['success'],
             customers
         }
+        console.log(`${launch.flightNumber}, ${launch.mission}`);
     }
 }
 
