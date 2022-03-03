@@ -1,3 +1,4 @@
+const axios = require('axios');
 // Linking our mongodb launches collection
 const launchesDatabase = require('./launches.mongo');
 const planets = require('./planets.mongo');
@@ -21,8 +22,25 @@ const launch = {
 
 saveLaunch(launch);
 
+// SpaceX API url
+const SPACEX_API_URL = "https://api.spacexdata.com/v4/launches/query";
+
 async function loadLaunchesData() {
     console.log("Downloading launches data...");
+    await axios.post(SPACEX_API_URL, {
+        query: {},
+        options: {
+            populate: [
+                {
+                    path: 'rocket',
+                    select: {
+                        name: 1
+                    }
+
+                }
+            ]
+        }
+    });
 }
 
 // See if a launch exists within our database
