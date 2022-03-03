@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/jam-madrigal/NASA-project/issues"
   },
-  "homepage": "https://github.com/jam-madrigal/NASA-project#readme"
+  "homepage": "https://github.com/jam-madrigal/NASA-project#readme",
+  "dependencies": {
+    "axios": "^0.26.0"
+  }
 }
