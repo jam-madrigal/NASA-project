@@ -21,6 +21,10 @@ const launch = {
 
 saveLaunch(launch);
 
+async function loadLaunchesData() {
+    console.log("Downloading launches data...");
+}
+
 // See if a launch exists within our database
 async function existsLaunchWithId(launchId) {
     return await launchesDatabase.findOne({
@@ -98,6 +102,7 @@ async function abortLaunchById(launchId) {
 }
 
 module.exports = {
+    loadLaunchesData,
     existsLaunchWithId,
     getAllLaunches,
     scheduleNewLaunch,

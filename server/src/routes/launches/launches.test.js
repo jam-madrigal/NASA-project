@@ -17,7 +17,7 @@ describe('Launches API', () => {
     describe('TEST GET /launches', () => {
         test('IT should respond with 200 success', async () => {
             const response = await request(app)
-                .get('/launches')
+                .get('/v1/launches')
                 //Checking our headers, checking the content type using javascript's regular expression syntax, to see if it contains json in it, and the status code
                 .expect('Content-Type', /json/)
                 .expect(200);
@@ -52,7 +52,7 @@ describe('Launches API', () => {
         // Testing our success
         test('It should respond with 201 created', async () => {
             const response = await request(app)
-                .post('/launches')
+                .post('/v1/launches')
                 .send(completeLaunchData)
                 .expect('Content-Type', /json/)
                 .expect(201);
@@ -67,7 +67,7 @@ describe('Launches API', () => {
         // Testing our errors. We can use the same post request, but use the one missing a required value, and expect a 400 error
         test('It should catch missing required properties', async () => {
             const response = await request(app)
-                .post('/launches')
+                .post('/v1/launches')
                 .send(launchDataWithoutDate)
                 .expect('Content-Type', /json/)
                 .expect(400);
@@ -79,7 +79,7 @@ describe('Launches API', () => {
     
         test('It should catch invalid dates', async() => {
              const response = await request(app)
-                .post('/launches')
+                .post('/v1/launches')
                 .send(launchDataWithInvalidDate)
                 .expect('Content-Type', /json/)
                 .expect(400);
