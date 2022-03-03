@@ -1,5 +1,5 @@
 // All of our API functions will be made against our single API, so let's set our address of the API into a constant
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://localhost:8000/v1';
 
 // Use the browsers built in function, and specify that we are using different ports for our front and backend
 // Load planets and return as JSON.
