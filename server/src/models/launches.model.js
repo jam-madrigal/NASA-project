@@ -25,6 +25,7 @@ saveLaunch(launch);
 // SpaceX API url
 const SPACEX_API_URL = "https://api.spacexdata.com/v4/launches/query";
 
+// Loading all the SpaceX launch data we need with axios
 async function loadLaunchesData() {
     console.log("Downloading launches data...");
     const response = await axios.post(SPACEX_API_URL, {
@@ -47,6 +48,27 @@ async function loadLaunchesData() {
             ]
         }
     });
+    // Response from our axios query for launch data, which axios stores in a docs array in the response.data   
+    const launchDocs = response.data.docs
+    // Looping over the launch data to make a launch object to save in our database
+    for (const launchDoc of launchDocs) {
+        // Using the built in flatMap() function to make a new array out of each element in the array where customers are stored, it is called on an array and takes a callback which runs on each element and then combines the results of each into a new array
+        const payloads = launchDocs['payloads'];
+        // Iterating over each payload and taking each customers value for each payload and combining them into an array
+        const customers = payloads.flatMap((payload) => {
+            return payload['customers'];
+        });
+
+        const launch = {
+            flightNumber: launchDoc['flight_number'],
+            mission: launchDoc['name'],
+            rocket: launchDoc['rocket']['name'],
+            launchDate: launchDoc['date_local'],
+            upcoming: launchDoc['upcoming'],
+            success: launchDoc['success'],
+            customers
+        }
+    }
 }
 
 // See if a launch exists within our database
