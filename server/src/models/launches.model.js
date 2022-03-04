@@ -55,7 +55,7 @@ async function populateLaunches() {
     for (const launchDoc of launchDocs) {
         // Using the built in flatMap() function to make a new array out of each element in the array where customers are stored, it is called on an array and takes a callback which runs on each element and then combines the results of each into a new array
         const payloads = launchDoc['payloads'];
-        // Iterating over each payload and taking each customers value for each payload and combining them into an array
+        // Iterating over each payload and taking each customers value for each payload and combining them into an array to use in our new launch document, creating the new document, and saving it to mongodb
         const customers = payloads.flatMap((payload) => {
             return payload['customers'];
         });
@@ -71,6 +71,7 @@ async function populateLaunches() {
         }
         console.log(`${launch.flightNumber}, ${launch.mission}`);
         // Populate launches collection
+        await saveLaunch(launch);
     }
 }
 // Loading all the SpaceX launch data we need with axios
@@ -120,15 +121,6 @@ async function getAllLaunches() {
 
 // Saving launches to mongodb
 async function saveLaunch(launch) {
-    // Validating the planet exists, so we do not add launches to planets that do not exist in our database
-    const planet = await planets.findOne({
-        keplerName: launch.target
-    });
-
-    if (!planet) {
-        throw new Error('No matching planet was found');
-    }
-    
     // Saving a doocument with the newly passed in launch object, or updating it if it already exists by flight number
     try {
         await launchesDatabase.findOneAndUpdate({
@@ -142,6 +134,15 @@ async function saveLaunch(launch) {
 
 // Adding a document containing a new launch to mongodb
 async function scheduleNewLaunch(launch) {
+    // Validating the planet exists, so we do not add launches to planets that do not exist in our database
+    const planet = await planets.findOne({
+        keplerName: launch.target
+    });
+
+    if (!planet) {
+        throw new Error('No matching planet was found');
+    }
+    
     const newFlightNumber = await getLatestFlightNumber() + 1;
 
     const newLaunch = Object.assign(launch, {
