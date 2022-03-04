@@ -49,6 +49,11 @@ async function populateLaunches() {
             ]
         }
     });
+
+    if (response.status != 200) {
+        console.log('Problem downloading launch data');
+        throw new Error('Launch data download failed');
+    }
     // Response from our axios query for launch data, which axios stores in a docs array in the response.data   
     const launchDocs = response.data.docs
     // Looping over the launch data to make a launch object to save in our database
@@ -142,7 +147,7 @@ async function scheduleNewLaunch(launch) {
     if (!planet) {
         throw new Error('No matching planet was found');
     }
-    
+
     const newFlightNumber = await getLatestFlightNumber() + 1;
 
     const newLaunch = Object.assign(launch, {
