@@ -121,7 +121,8 @@ async function getLatestFlightNumber() {
 // GET all launches
 async function getAllLaunches() {
     return await launchesDatabase
-    .find({}, { '_id': 0, '__v': 0});
+    .find({}, { '_id': 0, '__v': 0})
+
 }
 
 // Saving launches to mongodb

@@ -8,6 +8,7 @@ const {
 // Getting our launches data, converting it into an iterable list of values in the Map, and creating an array from that list
 async function httpGetAllLaunches(req, res) {
     return res.status(200).json(await getAllLaunches());
+    const { page, limit } = req.query;
 }
 
 // Function for handling POST of new launches
