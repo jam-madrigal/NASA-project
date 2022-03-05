@@ -3,7 +3,6 @@
 /node_modules
 /.pnp
 .pnp.js
-mongourl.js
 
 
 # testing
@@ -11,6 +10,10 @@ mongourl.js
 
 # production
 /build
+
+# Secrets not taken from the frontend/client
+mongourl.js
+.env
 
 # misc
 .DS_Store

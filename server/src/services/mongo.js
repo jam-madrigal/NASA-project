@@ -1,7 +1,8 @@
 
 const mongoose = require('mongoose');
-// Clones of this project will have tos upply their own database url, as I have hidden mine
-const MONGO_URL = require('../../mongourl');
+// Clones of this project will have to supply their own database url, as I have hidden mine, using .gitignore and then the dotenv npm package
+const MONGO_URL = process.env.MONGO_URL;
+
 mongoose.connect(MONGO_URL);
 // An event emitter that activates when the connection is ready and has succeeded, or when there are errors
 // The open event will only be triggered once, when the connection is ready, so we can use the .once feature all event emitters have to only trigger the callback function once

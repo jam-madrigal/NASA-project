@@ -1,4 +1,6 @@
 const http = require('http');
+// Mounting dotenv on the module directly so we can call our secret values
+require('dotenv').config();
 
 const app = require('./app');
 const { mongoConnect } = require('./services/mongo');
