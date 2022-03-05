@@ -9,7 +9,7 @@ const {
      getPagination
  } = require('../../services/query');
 
-// Getting our launches data, converting it into an iterable list of values in the Map, and creating an array from that list
+// Getting our launches data, taking any pagination parameters, and sending it to our api and mongo to get a list of launches
 async function httpGetAllLaunches(req, res) {
     const { skip, limit } = getPagination(req.query);
     const launches = await getAllLaunches(skip, limit)
