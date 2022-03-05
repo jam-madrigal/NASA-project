@@ -1,5 +1,5 @@
 // Paginating our endpoints
-async function getPagination(query) {
+function getPagination(query) {
     // In Mongo, if we use 0 as our page limit, it will return all documents
     const DEFAULT_PAGE_NUMBER = 1;
     const DEFAULT_PAGE_LIMIT = 0;
