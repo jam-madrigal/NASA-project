@@ -6,22 +6,6 @@ const planets = require('./planets.mongo');
 // Default flight number in case our getLatestLaunch function has no launches to reference
 const DEFAULT_FLIGHT_NUMBER = 100;
 
-const launches = new Map();
-// Setting state to log our most recent flight number
-
-const launch = {
-    flightNumber: 100, // flight_number
-    mission: 'Kepler Exploration X', //name
-    rocket: 'Explorer IS1', // rocket.name
-    launchDate: new Date('December 27, 2030'), // date_local
-    target: 'Kepler-442 b', // not applicable
-    customers: ['NASA', 'ZTM'], // payload.customers for each payload
-    upcoming: true, // upcoming
-    success: true // success
-};
-
-saveLaunch(launch);
-
 // SpaceX API url
 const SPACEX_API_URL = "https://api.spacexdata.com/v4/launches/query";
 
