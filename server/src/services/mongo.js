@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
 // Clones of this project will have to supply their own database url, as I have hidden mine, using .gitignore and then the dotenv npm package
+require('dotenv').config();
 const MONGO_URL = process.env.MONGO_URL;
 
 mongoose.connect(MONGO_URL);
