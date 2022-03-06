@@ -7,7 +7,7 @@ function getPagination(query) {
     const page = Math.abs(query.page) || DEFAULT_PAGE_NUMBER;
     const limit = Math.abs(query.limit) || DEFAULT_PAGE_LIMIT;
     // How many documents to skip depending on the page we want. Since the limit defines the length of the page, we will always need to skip enough pages to reach the page we want (page -1), ex. if a limit of 50, and we want page 2, we must skip 50, and this formula will always give us that number
-    const skip = (page -1) * limit;
+    const skip = (page - 1) * limit;
 
     return {
         skip,
