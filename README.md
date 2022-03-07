@@ -41,6 +41,7 @@ Any and all inquiry can be done through github.
 ## Creator information
 ---
 Github profile: https://github.com/jam-madrigal 
+
 Contact email: alex@amagicaldev.com
 
 
