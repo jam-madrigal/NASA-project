@@ -1,0 +1,25 @@
+# Name of the workflow that shows up on github actions
+name: NASA Project CI
+# When the workflow will run: defining triggers
+on:
+# Workflow will run when code is pushed to our main branch, or a pull request is merged into our main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+# When one of these events is triggered... build on ubuntu, as it is one of the most common for servers to run on, then define the actions on ubuntu
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2 # A built in github action, always good to specify versions (@v2) in case an update breaks something, this script allows our workflow to access our repo
+      # Makes sure node is installed, and uses version 16, running npm install and our build script as a step
+      - name: Use node.js version 16 
+      - uses: actions/setup-node@v2 
+        with: 
+          node-version: '16'
+      - run: npm install
+      - run: npm run build --prefix client
+  # If we wanted our code to also deploy, and only if it builds successfully
+  # deploy:
+  #   needs: build
