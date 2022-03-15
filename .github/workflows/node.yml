@@ -4,9 +4,9 @@ name: NASA Project CI
 on:
 # Workflow will run when code is pushed to our main branch, or a pull request is merged into our main branch
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 # When one of these events is triggered... build on ubuntu, as it is one of the most common for servers to run on, then define the actions on ubuntu
 jobs:
   build:
