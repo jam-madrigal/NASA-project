@@ -10,16 +10,26 @@ on:
 # When one of these events is triggered... build on ubuntu, as it is one of the most common for servers to run on, then define the actions on ubuntu
 jobs:
   build:
+    env:
+      # Telling the create-react-app test script that we are running in a continuous integration environment, to disable watch mode, this feature is built into react. We could also set a port here.
+      CI: true
+    # Having our build jobs run on several different environments
+    strategy:
+      matrix:
+        # Tests on the latest versions of both node 16 and 14, for example 
+        node-version: [16.x, 14.x]
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2 # A built in github action, always good to specify versions (@v2) in case an update breaks something, this script allows our workflow to access our repo
       # Makes sure node is installed, and uses version 16, running npm install and our build script as a step
-      - name: Use Node.js version 16 
+      - name: Use Node.js version ${{ matrix.node-version }} 
         uses: actions/setup-node@v2 
         with: 
-          node-version: '16'
+          node-version: ${{ matrix.node-version }} # Setting our node version to a variable using our strategy's values
       - run: npm install
       - run: npm run build --prefix client
+      # The client tests are running in watch mode by default, so we need to disable that for this since it would require manual termination
+      - run: npm test
   # If we wanted our code to also deploy, and only if it builds successfully
   # deploy:
   #   needs: build
