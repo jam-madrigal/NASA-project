@@ -12,6 +12,7 @@ jobs:
   build:
     env:
       # Telling the create-react-app test script that we are running in a continuous integration environment, to disable watch mode, this feature is built into react. We could also set a port here.
+      CI: true
       # This will use the database specified, and create it if it doesn't exist. Our MongoDB in github actions job is setting up a DB
       MONGO_URL: mongodb://localhost/nasa
     # Having our build jobs run on several different environments
