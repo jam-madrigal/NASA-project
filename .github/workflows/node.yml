@@ -20,7 +20,7 @@ jobs:
       matrix:
         # Tests on the latest versions of both node 16 and 14, for example , and/or mongodb 4.2 and 4.4 with each node version
         node-version: [16.x, 14.x]
-        mongodb-version: ['4.4']
+        mongodb-version: ['4.2']
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2 # A built in github action, always good to specify versions (@v2) in case an update breaks something, this script allows our workflow to access our repo
