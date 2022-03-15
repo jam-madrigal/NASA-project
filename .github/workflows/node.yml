@@ -32,8 +32,8 @@ jobs:
       # Setting up MongoDB for our CI environment
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.7.0
-          with: 
-            mongodb-version: ${{ matrix.mongodb-version }}
+        with: 
+          mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
       - run: npm run build --prefix client
       # The client tests are running in watch mode by default, so we need to disable that for this since it would require manual termination
