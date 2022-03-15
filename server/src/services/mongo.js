@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const MONGO_URL = process.env.MONGO_URL;
 
-mongoose.connect(MONGO_URL);
+// mongoose.connect(MONGO_URL);
 // An event emitter that activates when the connection is ready and has succeeded, or when there are errors
 // The open event will only be triggered once, when the connection is ready, so we can use the .once feature all event emitters have to only trigger the callback function once
 mongoose.connection.once('open', () => {
