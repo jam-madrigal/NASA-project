@@ -1,0 +1,6 @@
+# Don't need to include our github stuff
+.git
+# Excluding node modules from all directories in the root folder that contain it
+*/node_modules
+# Because our public folder is built from running the build comman with react, we should exclude it so our build is only made on the server and doesn't copy our local files, same as node_modules being installed fresh on the particular OS docker is using
+server/public
