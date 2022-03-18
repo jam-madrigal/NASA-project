@@ -1,5 +1,7 @@
 // All of our API functions will be made against our single API, so let's set our address of the API into a constant
-const API_URL = 'http://localhost:8000/v1';
+// const API_URL = 'http://localhost:8000/v1';
+// This url was updated to the below so that the url would work anywhere. When using docker and running our application on the cloud, the domain may change. Like this, the client know that requests should be made to the api at the same address/origin as the front end
+const API_URL = 'v1';
 
 // Use the browsers built in function, and specify that we are using different ports for our front and backend
 // Load planets and return as JSON.
