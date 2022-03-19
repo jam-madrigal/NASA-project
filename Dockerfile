@@ -1,4 +1,4 @@
-# Select the base image using the FROM statement, use alpine linux running the latest version of node(lts)
+# Select the base image using the FROM statement, use alpine linux running the latest version of node(lts) -- changed this to 14 to prevent errors TODO: Figure out what needs updating to resolve errors on the latest version
 FROM node:14-alpine
 # Make a folder for our application, all subsequent commands will be run here
 WORKDIR /app
