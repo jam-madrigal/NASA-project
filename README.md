@@ -12,7 +12,7 @@
 
 
 # Description
-Built using node, express, mongodb/mongoose, docker on AWS, react, axios, dotenv, and diagrammed using lucidchart. Tests written using jest. Frontend provided with the help of [arwes](https://github.com/arwes/arwes) and ZTM. 
+Built using node, express, mongodb/mongoose, docker, AWS, react, axios, dotenv, and diagrammed using lucidchart. Tests written using jest. Frontend provided with the help of [arwes](https://github.com/arwes/arwes) and ZTM. 
 
 https://user-images.githubusercontent.com/65047802/156988568-0e9a6379-aef7-4cd0-b977-050b130a1860.mp4
 
