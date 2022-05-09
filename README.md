@@ -30,7 +30,7 @@ Clone this repository, open git bash or terminal in the directory and run npm in
 This application is not licensed.
 
 # Tests
-- Jest tests can be ran from the root directory and running npm run test and are located in /server/src/launches/launches.test.js
+- Jest tests can be ran from the root directory and running npm run test and are located in /server/src/routes/launches/launches.test.js
 
 # Contributing
 Feel free to fork the repository and edit it as you wish for your own fun. This project was only made for personal practice.
